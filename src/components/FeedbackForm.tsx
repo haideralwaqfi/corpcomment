@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { MAX_NUMBER_OF_WORDS } from "../lib/constants.js";
+import { MAX_NUMBER_OF_WORDS } from "../lib/constants.ts";
 export default function FeedbackForm() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   const wordsLeft: number = MAX_NUMBER_OF_WORDS - text.length;
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    if (newText.length >= MAX_NUMBER_OF_WORDS) return;
+    setText(newText);
+  };
 
   return (
     <form className="form">
       <textarea
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleChange}
         placeholder="blabla"
         spellCheck={false}
         id="feedback-textarea"
