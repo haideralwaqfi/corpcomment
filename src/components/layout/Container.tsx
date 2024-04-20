@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
-import FeedbackList from "./FeedbackList";
-import { TFeedbackItems } from "../types/types";
+import FeedbackList from "../feedback/FeedbackList";
+import { TFeedbackItems } from "../../types/types";
 
 type ContainerPropsTypes = {
   feedbackItems: TFeedbackItems;

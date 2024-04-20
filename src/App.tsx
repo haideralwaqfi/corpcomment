@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Container from "./components/Container";
-import Footer from "./components/Footer";
+import Container from "./components/layout/Container";
+import Footer from "./components/layout/Footer";
 import HashtagList from "./components/HashtagList";
 import { TFeedbackItem } from "./types/types";
 
@@ -9,7 +9,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleAddToList = (text: string) => {
+  const handleAddToList = async (text: string) => {
     const companyName = text
       .split(" ")
       .find((word: string) => word.includes("#"))!
@@ -19,11 +19,22 @@ function App() {
       id: new Date().getTime(),
       upvoteCount: 0,
       badgeLetter: companyName.substring(0, 1).toUpperCase(),
-      companyName: companyName,
-      text: "",
+      company: companyName,
+      text: text,
       daysAgo: 0,
     };
     setFeedbackItems([...feedbackItems, newItem]);
+    await fetch(
+      "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(newItem),
+      }
+    );
   };
 
   useEffect(() => {
