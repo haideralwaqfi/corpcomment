@@ -1,4 +1,4 @@
-export type feedbackItem = {
+export type TFeedbackItem = {
   id: number;
   upvoteCount: number;
   badgeLetter: string;
@@ -7,4 +7,4 @@ export type feedbackItem = {
   daysAgo: number;
 };
 
-export type feedbackItems = Array<feedbackItem>;
+export type TFeedbackItems = Array<TFeedbackItem>;

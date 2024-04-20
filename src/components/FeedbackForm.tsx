@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { MAX_NUMBER_OF_WORDS } from "../lib/constants.ts";
-export default function FeedbackForm() {
+type FeedbackFormPropsTypes = {
+  onAddToList: (text: string) => void;
+};
+export default function FeedbackForm({ onAddToList }: FeedbackFormPropsTypes) {
   const [text, setText] = useState<string>("");
   const wordsLeft: number = MAX_NUMBER_OF_WORDS - text.length;
 
@@ -10,8 +13,14 @@ export default function FeedbackForm() {
     setText(newText);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onAddToList(text);
+    setText("");
+  };
+
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit}>
       <textarea
         value={text}
         onChange={handleChange}
