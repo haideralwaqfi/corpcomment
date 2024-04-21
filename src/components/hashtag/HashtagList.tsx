@@ -1,19 +1,14 @@
+import { useFeedbackItemsStore } from "../../stores/feedbackItemsStores";
 import HashtagItem from "./HashtagItem";
 
-type HashtagListPropsTypes = {
-  companyList: string[];
-  handleSelectedCompany: (company: string) => void;
-};
-
-export default function HashtagList({
-  companyList,
-  handleSelectedCompany,
-}: HashtagListPropsTypes) {
+export default function HashtagList() {
+  const companyList = useFeedbackItemsStore((state) => state.getCompanyList());
+  const selectCompany = useFeedbackItemsStore((state) => state.selectCompany);
   return (
     <ul className="hashtags">
       {companyList.map((company: string) => (
         <HashtagItem
-          onSelectCompany={handleSelectedCompany}
+          onSelectCompany={selectCompany}
           key={company}
           company={company}
         />
